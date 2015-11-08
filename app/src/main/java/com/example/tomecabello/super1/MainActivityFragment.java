@@ -12,6 +12,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -45,6 +48,11 @@ public class MainActivityFragment extends Fragment {
             items
                 );
         pelis.setAdapter(adapter);
+        final String BASE_URL = "https://api.themoviedb.org/3/movie/";
+        Retrofit retrofit = new Retrofit.Builder()
+                              .baseUrl(BASE_URL)
+                               .addConverterFactory(GsonConverterFactory.create())
+                               .build();
         return rootView;
     }
 }
