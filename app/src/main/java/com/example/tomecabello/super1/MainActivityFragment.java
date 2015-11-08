@@ -4,6 +4,9 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -35,11 +38,16 @@ public class MainActivityFragment extends Fragment {
     public MainActivityFragment() {
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
             }
+
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +72,7 @@ public class MainActivityFragment extends Fragment {
             items
                 );
         pelis.setAdapter(adapter);
-        final String API_KEY = "6cb54438ece271e5a26d8c532fac02ce";
+        /*final String API_KEY = "6cb54438ece271e5a26d8c532fac02ce";
         final String BASE_URL = "https://api.themoviedb.org/3/";
         Retrofit retrofit = new Retrofit.Builder()
                               .baseUrl(BASE_URL)
@@ -95,12 +103,65 @@ public class MainActivityFragment extends Fragment {
                 System.out.println("BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArfewqaf34erAAAAAAAAAAAAA");
 
             }
-        });
+        });*/
 
         return rootView;
 
     }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu, menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_refresh) {
+            refresh();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void refresh() {
+        final String API_KEY = "6cb54438ece271e5a26d8c532fac02ce";
+        final String BASE_URL = "https://api.themoviedb.org/3/";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Interface servei = retrofit.create(Interface.class);
+
+        Call<API> call = servei.getPeliculesMesVistes();
+        call.enqueue(new Callback<API>() {
+
+            @Override
+            public void onResponse(Response<API> response, Retrofit retrofit) {
+                if (response.isSuccess()) {
+                    Log.d(null, "OK");
+                    API api= response.body();
+                    adapter.clear();
+                    for (Result peli : api.getResults()) {
+                        adapter.add(peli.getTitle());
+                    }
+                    System.out.println("BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArfewqaf34erAAAAAAAAAAAAA");
+
+            }
+        });
+    }
 
 
     public interface Interface {
