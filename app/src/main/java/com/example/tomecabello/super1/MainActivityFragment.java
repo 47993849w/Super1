@@ -79,6 +79,8 @@ public class MainActivityFragment extends Fragment {
     private void refresh() {
         Api api = new Api();
         api.getPeliculesMesVistes(adapter);
+
+
     }
 
 
