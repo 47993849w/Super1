@@ -75,6 +75,10 @@ public class MainActivityFragment extends Fragment {
                 if (response.isSuccess()) {
                         Log.d(null, "OK");
                     API api= response.body();
+                    adapter.clear();
+                    for (Result peli : api.getResults()) {
+                        adapter.add(peli.getTitle());
+                    }
                     System.out.println("BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 }
 
