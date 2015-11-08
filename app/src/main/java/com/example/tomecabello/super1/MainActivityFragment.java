@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -29,7 +31,13 @@ public class MainActivityFragment extends Fragment {
         ListView pelis = (ListView)rootView.findViewById(R.id.pelis);
 
 
-        items = new ArrayList<>();
+
+        String[] data = {
+                "Prueba 1",
+                "Prueba 2",
+                "Prueba 3"
+        };
+        items = new ArrayList<>(Arrays.asList(data));
         adapter = new ArrayAdapter<>(
                 getContext(),
             R.layout.ly_pelis,
