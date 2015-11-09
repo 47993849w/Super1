@@ -24,7 +24,7 @@ public class Result {
     private Double popularity;
     private String title;
     private Boolean video;
-    private Double voteAverage;
+    private Double vote_average;
     private Integer voteCount;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -250,7 +250,7 @@ public class Result {
      * The voteAverage
      */
     public Double getVoteAverage() {
-        return voteAverage;
+        return vote_average;
     }
 
     /**
@@ -259,7 +259,7 @@ public class Result {
      * The vote_average
      */
     public void setVoteAverage(Double voteAverage) {
-        this.voteAverage = voteAverage;
+        this.vote_average = voteAverage;
     }
 
     /**

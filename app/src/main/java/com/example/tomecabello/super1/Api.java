@@ -59,10 +59,41 @@ public class Api {
 
     }
 
+    public void getPeliculesMesVotades(final ArrayAdapter adapter) {
+        Call<API> call = servei.getPeliculesMesVotades();
+        call.enqueue(new Callback<API>() {
+
+            @Override
+            public void onResponse(Response<API> response, Retrofit retrofit) {
+                if (response.isSuccess()) {
+                    Log.d(null, "OK");
+                    API api = response.body();
+                    adapter.clear();
+                    for (Result peli : api.getResults()) {
+                        Double vote = peli.getVoteAverage();
+                        adapter.add("Titulo:"+peli.getTitle()+"\nVoto--"+vote);
+                    }
+                    System.out.println("BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArfewqaf34erAAAAAAAAAAAAA");
+
+            }
+        });
+    }
+
 
     public interface Interface {
         @GET("discover/movie?sort_by=popularity.desc&api_key=6cb54438ece271e5a26d8c532fac02ce")
         Call<API> getPeliculesMesVistes();
+        @GET("discover/movie?sort_by=vote_average.desc&api_key=6cb54438ece271e5a26d8c532fac02ce")
+        Call<API> getPeliculesMesVotades();
+
+
     }
 
 

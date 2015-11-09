@@ -1,5 +1,7 @@
 package com.example.tomecabello.super1;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -78,7 +80,16 @@ public class MainActivityFragment extends Fragment {
 
     private void refresh() {
         Api api = new Api();
-        api.getPeliculesMesVistes(adapter);
+        //api.getPeliculesMesVistes(adapter);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String tipoConsulta = preferences.getString("tipoConsulta", "Mas vistas");
+        if (tipoConsulta.equals("r")){
+            api.getPeliculesMesVistes(adapter);
+        }
+        else {
+            api.getPeliculesMesVotades(adapter);
+        }
 
 
     }

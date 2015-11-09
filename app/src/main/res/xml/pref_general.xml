@@ -24,7 +24,7 @@
     <ListPreference
         android:key="tipoConsulta"
         android:title="@string/pref_title_add_friends_to_messages"
-        android:defaultValue="r"
+        android:defaultValue="Mas vistas"
         android:entries="@array/tipoConsulta_titles"
         android:entryValues="@array/tipoConsulta_values"
         android:negativeButtonText="@null"
