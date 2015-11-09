@@ -30,6 +30,12 @@ public class MainActivityFragment extends Fragment {
             }
 
 
+    public void onStart() {
+                super.onStart();
+                refresh();
+            }
+
+
 
 
 
