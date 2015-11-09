@@ -19,8 +19,8 @@ public class Result {
     private String originalLanguage;
     private String originalTitle;
     private String overview;
-    private String releaseDate;
-    private String posterPath;
+    private String release_date;
+    private String poster_path;
     private Double popularity;
     private String title;
     private Boolean video;
@@ -160,7 +160,7 @@ public class Result {
      * The releaseDate
      */
     public String getReleaseDate() {
-        return releaseDate;
+        return release_date;
     }
 
     /**
@@ -169,7 +169,7 @@ public class Result {
      * The release_date
      */
     public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+        this.release_date = releaseDate;
     }
 
     /**
@@ -178,7 +178,7 @@ public class Result {
      * The posterPath
      */
     public String getPosterPath() {
-        return posterPath;
+        return poster_path;
     }
 
     /**
@@ -187,7 +187,7 @@ public class Result {
      * The poster_path
      */
     public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
+        this.poster_path = posterPath;
     }
 
     /**

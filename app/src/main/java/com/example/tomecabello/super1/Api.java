@@ -4,6 +4,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.example.tomecabello.super1.json.API;
+import com.example.tomecabello.super1.json.Peli;
 import com.example.tomecabello.super1.json.Result;
 
 import retrofit.Call;
@@ -32,7 +33,7 @@ public class Api {
 
 
 
-    public void getPeliculesMesVistes(final ArrayAdapter adapter){
+    public void getPeliculesMesVistes(final ArrayAdapter<Result> adapter){
         Call<API> call = servei.getPeliculesMesVistes();
         call.enqueue(new Callback<API>() {
 
@@ -43,7 +44,7 @@ public class Api {
                     API api= response.body();
                     adapter.clear();
                     for (Result peli : api.getResults()) {
-                        adapter.add(peli.getTitle());
+                        adapter.add(peli);
                     }
                     System.out.println("BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 }
@@ -59,7 +60,7 @@ public class Api {
 
     }
 
-    public void getPeliculesMesVotades(final ArrayAdapter adapter) {
+    public void getPeliculesMesVotades(final ArrayAdapter<Result> adapter) {
         Call<API> call = servei.getPeliculesMesVotades();
         call.enqueue(new Callback<API>() {
 
@@ -71,7 +72,7 @@ public class Api {
                     adapter.clear();
                     for (Result peli : api.getResults()) {
                         Double vote = peli.getVoteAverage();
-                        adapter.add("Titulo:"+peli.getTitle()+"\nVoto--"+vote);
+                        adapter.add(peli);
                     }
                     System.out.println("BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 }

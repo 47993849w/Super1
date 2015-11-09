@@ -12,12 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.tomecabello.super1.json.Peli;
+import com.example.tomecabello.super1.json.Result;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 public class MainActivityFragment extends Fragment {
 
-    private ArrayList<String> items;
-    private ArrayAdapter<String> adapter;
+    private ArrayList<Result> items;
+    private Peli adapter;
 
     public MainActivityFragment() {
     }
@@ -54,12 +58,12 @@ public class MainActivityFragment extends Fragment {
                 "Prueba 2",
                 "Prueba 3"
         };
-        items = new ArrayList<>(Arrays.asList(data));
-        adapter = new ArrayAdapter<>(
+        items = new ArrayList<>();
+        adapter = new Peli(
                 getContext(),
             R.layout.ly_pelis,
-             R.id.tvPelis,
             items
+
                 );
         pelis.setAdapter(adapter);
         return rootView;
