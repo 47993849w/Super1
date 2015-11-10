@@ -4,7 +4,6 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.example.tomecabello.super1.json.API;
-import com.example.tomecabello.super1.json.Peli;
 import com.example.tomecabello.super1.json.Result;
 
 import retrofit.Call;
