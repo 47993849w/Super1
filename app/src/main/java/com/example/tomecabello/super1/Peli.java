@@ -19,6 +19,9 @@ import java.util.List;
 /**
  * Created by tomeCabello on 09/11/2015.
  */
+
+// Esta clase nos permite meter los valores del json dentro de lso campos del listview. Creado el adaptador personalizado
+
 public class Peli extends ArrayAdapter<Result> {
 
     public Peli(Context context, int resource, List<Result> objects) {

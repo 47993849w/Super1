@@ -16,9 +16,11 @@ import retrofit.http.GET;
 /**
  * Created by tomeCabello on 08/11/2015.
  */
+
+//Creamos el cliente donde usaremos retrofit.
 public class Api {
     final String API_KEY = "6cb54438ece271e5a26d8c532fac02ce";
-    final String BASE_URL = "https://api.themoviedb.org/3/";
+    final String BASE_URL = "https://api.themoviedb.org/3/";//Parte "basica" de la url
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -32,12 +34,13 @@ public class Api {
 
 
 
+    //Com esto mostaremos las pelis más vistas
     public void getPeliculesMesVistes(final ArrayAdapter<Result> adapter){
         Call<API> call = servei.getPeliculesMesVistes();
-        call.enqueue(new Callback<API>() {
+        call.enqueue(new Callback<API>()  { //Encolamos
 
             @Override
-            public void onResponse(Response<API> response, Retrofit retrofit) {
+            public void onResponse(Response<API> response, Retrofit retrofit) { //Si responde, podemos usar el json y añadir a nuestro adapter la peli
                 if (response.isSuccess()) {
                     Log.d(null, "OK");
                     API api= response.body();
@@ -45,20 +48,21 @@ public class Api {
                     for (Result peli : api.getResults()) {
                         adapter.add(peli);
                     }
-                    System.out.println("BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
                 }
 
             }
 
             @Override
             public void onFailure(Throwable t) {
-                System.out.println("BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArfewqaf34erAAAAAAAAAAAAA");
+
 
             }
         });
 
     }
 
+    //Con esto, las votadas
     public void getPeliculesMesVotades(final ArrayAdapter<Result> adapter) {
         Call<API> call = servei.getPeliculesMesVotades();
         call.enqueue(new Callback<API>() {
@@ -73,20 +77,21 @@ public class Api {
                         Double vote = peli.getVoteAverage();
                         adapter.add(peli);
                     }
-                    System.out.println("BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
                 }
 
             }
 
             @Override
             public void onFailure(Throwable t) {
-                System.out.println("BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArfewqaf34erAAAAAAAAAAAAA");
+
 
             }
         });
     }
 
 
+    //creamos la interfaz que llamara a la url del json.
     public interface Interface {
         @GET("discover/movie?sort_by=popularity.desc&api_key=6cb54438ece271e5a26d8c532fac02ce")
         Call<API> getPeliculesMesVistes();

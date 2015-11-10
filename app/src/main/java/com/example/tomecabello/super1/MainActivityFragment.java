@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class MainActivityFragment extends Fragment {
 
+    //declaramos nuestro adaptador personal
     private ArrayList<Result> items;
     private Peli adapter;
 
@@ -32,6 +33,7 @@ public class MainActivityFragment extends Fragment {
             }
 
 
+    //cada vez que monstramos este fragment,  recargamos la lista
     public void onStart() {
                 super.onStart();
                 refresh();
@@ -86,6 +88,7 @@ public class MainActivityFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    //Aqui miraremso que opcion está seleccionada, y mostraremos la lista que pertoca
     private void refresh() {
         Api api = new Api();
         //api.getPeliculesMesVistes(adapter);
