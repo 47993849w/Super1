@@ -1,5 +1,6 @@
 package com.example.tomecabello.super1;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -10,11 +11,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.tomecabello.super1.json.API;
 import com.example.tomecabello.super1.json.Result;
 
 import java.util.ArrayList;
+
+import retrofit.Retrofit;
 
 public class MainActivityFragment extends Fragment {
 
@@ -48,7 +54,7 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        ListView pelis = (ListView)rootView.findViewById(R.id.pelis);
+        final ListView pelis = (ListView)rootView.findViewById(R.id.pelis);
 
 
 
@@ -66,6 +72,18 @@ public class MainActivityFragment extends Fragment {
 
                 );
         pelis.setAdapter(adapter);
+        pelis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getContext(), DetallesActivity.class);
+                i.putExtra("item", adapter.getItem(position));
+                startActivity(i);
+            }
+
+        });
+
+
         return rootView;
 
     }

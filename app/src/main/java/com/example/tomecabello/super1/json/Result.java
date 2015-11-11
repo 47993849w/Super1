@@ -1,5 +1,6 @@
 package com.example.tomecabello.super1.json;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Map;
 //}
 
 
-public class Result {
+public class Result implements Serializable{
 
     private Boolean adult;
     private String backdropPath;

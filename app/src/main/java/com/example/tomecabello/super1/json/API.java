@@ -1,5 +1,6 @@
 package com.example.tomecabello.super1.json;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Map;
 
 //AUTOCREADO  por POJO
 
-public class API {
+public class API implements Serializable{
     private Integer page;
     private List<Result> results = new ArrayList<Result>();
     private Integer totalPages;
