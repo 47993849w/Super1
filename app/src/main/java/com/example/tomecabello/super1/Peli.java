@@ -42,10 +42,10 @@ public class Peli extends ArrayAdapter<Result> {
         ImageView image3 = (ImageView) convertView.findViewById(R.id.imageView);
 
         title.setText(result.getTitle());
-        popularity.setText(""+result.getPopularity());
-        data.setText(result.getReleaseDate());
+        popularity.setText("Popularidad: "+result.getPopularity());
+        data.setText("Fecha: "+result.getReleaseDate());
         final  String POSTERURLINI = "http://image.tmdb.org/t/p/";
-        final String TMN = "w185";
+        final String TMN = "w342";
         Picasso.with(this.getContext()).load(POSTERURLINI+TMN+result.getPosterPath()).into(image3);
         System.out.println(POSTERURLINI + TMN + result.getPosterPath());
 
