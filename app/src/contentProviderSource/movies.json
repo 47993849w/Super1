@@ -6,7 +6,7 @@
     },
     {
       "name": "criticsScore",
-      "type": "Integer"
+      "type": "Double"
     },
     {
       "name": "audienceScore",
@@ -25,6 +25,10 @@
       "type": "String"
     },
     {
+      "name": "posterUrl",
+      "type": "String"
+    },
+      {
       "name": "syncTime",
       "type": "Date"
     }

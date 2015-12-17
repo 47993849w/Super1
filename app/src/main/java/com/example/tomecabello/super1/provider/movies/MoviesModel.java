@@ -24,7 +24,7 @@ public interface MoviesModel extends BaseModel {
      * Can be {@code null}.
      */
     @Nullable
-    Integer getCriticsscore();
+    Double getCriticsscore();
 
     /**
      * Get the {@code audiencescore} value.
@@ -53,6 +53,13 @@ public interface MoviesModel extends BaseModel {
      */
     @Nullable
     String getReleasedate();
+
+    /**
+     * Get the {@code posterurl} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    String getPosterurl();
 
     /**
      * Get the {@code synctime} value.

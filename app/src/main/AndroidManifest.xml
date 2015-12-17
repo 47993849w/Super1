@@ -38,6 +38,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.tomecabello.super1.MainActivity" />
         </activity>
+
+        <provider
+            android:name="com.example.tomecabello.super1.provider.MoviesProvider"
+            android:authorities="com.example.tomecabello.super1.provider"
+            android:exported="false" />
     </application>
 
 </manifest>

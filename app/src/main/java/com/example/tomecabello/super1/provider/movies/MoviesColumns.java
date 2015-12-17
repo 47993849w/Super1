@@ -30,6 +30,8 @@ public class MoviesColumns implements BaseColumns {
 
     public static final String RELEASEDATE = "releaseDate";
 
+    public static final String POSTERURL = "posterUrl";
+
     public static final String SYNCTIME = "syncTime";
 
 
@@ -44,6 +46,7 @@ public class MoviesColumns implements BaseColumns {
             CONSENSUS,
             SYNOPSIS,
             RELEASEDATE,
+            POSTERURL,
             SYNCTIME
     };
     // @formatter:on
@@ -57,6 +60,7 @@ public class MoviesColumns implements BaseColumns {
             if (c.equals(CONSENSUS) || c.contains("." + CONSENSUS)) return true;
             if (c.equals(SYNOPSIS) || c.contains("." + SYNOPSIS)) return true;
             if (c.equals(RELEASEDATE) || c.contains("." + RELEASEDATE)) return true;
+            if (c.equals(POSTERURL) || c.contains("." + POSTERURL)) return true;
             if (c.equals(SYNCTIME) || c.contains("." + SYNCTIME)) return true;
         }
         return false;

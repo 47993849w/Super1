@@ -41,8 +41,8 @@ public class MoviesCursor extends AbstractCursor implements MoviesModel {
      * Can be {@code null}.
      */
     @Nullable
-    public Integer getCriticsscore() {
-        Integer res = getIntegerOrNull(MoviesColumns.CRITICSSCORE);
+    public Double getCriticsscore() {
+        Double res = getDoubleOrNull(MoviesColumns.CRITICSSCORE);
         return res;
     }
 
@@ -83,6 +83,16 @@ public class MoviesCursor extends AbstractCursor implements MoviesModel {
     @Nullable
     public String getReleasedate() {
         String res = getStringOrNull(MoviesColumns.RELEASEDATE);
+        return res;
+    }
+
+    /**
+     * Get the {@code posterurl} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    public String getPosterurl() {
+        String res = getStringOrNull(MoviesColumns.POSTERURL);
         return res;
     }
 

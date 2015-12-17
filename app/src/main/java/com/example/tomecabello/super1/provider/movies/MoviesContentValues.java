@@ -32,7 +32,7 @@ public class MoviesContentValues extends AbstractContentValues {
     /**
      * Update row(s) using the values stored by this object and the given selection.
      *
-     * @param context The content resolver to use.
+     * @param contentResolver The content resolver to use.
      * @param where The selection to use (can be {@code null}).
      */
     public int update(Context context, @Nullable MoviesSelection where) {
@@ -49,7 +49,7 @@ public class MoviesContentValues extends AbstractContentValues {
         return this;
     }
 
-    public MoviesContentValues putCriticsscore(@Nullable Integer value) {
+    public MoviesContentValues putCriticsscore(@Nullable Double value) {
         mContentValues.put(MoviesColumns.CRITICSSCORE, value);
         return this;
     }
@@ -59,7 +59,7 @@ public class MoviesContentValues extends AbstractContentValues {
         return this;
     }
 
-    public MoviesContentValues putAudiencescore(@Nullable Integer value) {
+    public MoviesContentValues putAudiencescore(@Nullable Double value) {
         mContentValues.put(MoviesColumns.AUDIENCESCORE, value);
         return this;
     }
@@ -96,6 +96,16 @@ public class MoviesContentValues extends AbstractContentValues {
 
     public MoviesContentValues putReleasedateNull() {
         mContentValues.putNull(MoviesColumns.RELEASEDATE);
+        return this;
+    }
+
+    public MoviesContentValues putPosterurl(@Nullable String value) {
+        mContentValues.put(MoviesColumns.POSTERURL, value);
+        return this;
+    }
+
+    public MoviesContentValues putPosterurlNull() {
+        mContentValues.putNull(MoviesColumns.POSTERURL);
         return this;
     }
 

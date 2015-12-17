@@ -26,11 +26,12 @@ public class MoviesSQLiteOpenHelper extends SQLiteOpenHelper {
             + MoviesColumns.TABLE_NAME + " ( "
             + MoviesColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + MoviesColumns.TITLE + " TEXT, "
-            + MoviesColumns.CRITICSSCORE + " INTEGER, "
+            + MoviesColumns.CRITICSSCORE + " REAL, "
             + MoviesColumns.AUDIENCESCORE + " INTEGER, "
             + MoviesColumns.CONSENSUS + " TEXT, "
             + MoviesColumns.SYNOPSIS + " TEXT, "
             + MoviesColumns.RELEASEDATE + " TEXT, "
+            + MoviesColumns.POSTERURL + " TEXT, "
             + MoviesColumns.SYNCTIME + " INTEGER "
             + " );";
 

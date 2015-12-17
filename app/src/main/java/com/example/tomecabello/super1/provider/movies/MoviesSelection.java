@@ -118,32 +118,32 @@ public class MoviesSelection extends AbstractSelection<MoviesSelection> {
         return this;
     }
 
-    public MoviesSelection criticsscore(Integer... value) {
+    public MoviesSelection criticsscore(Double... value) {
         addEquals(MoviesColumns.CRITICSSCORE, value);
         return this;
     }
 
-    public MoviesSelection criticsscoreNot(Integer... value) {
+    public MoviesSelection criticsscoreNot(Double... value) {
         addNotEquals(MoviesColumns.CRITICSSCORE, value);
         return this;
     }
 
-    public MoviesSelection criticsscoreGt(int value) {
+    public MoviesSelection criticsscoreGt(double value) {
         addGreaterThan(MoviesColumns.CRITICSSCORE, value);
         return this;
     }
 
-    public MoviesSelection criticsscoreGtEq(int value) {
+    public MoviesSelection criticsscoreGtEq(double value) {
         addGreaterThanOrEquals(MoviesColumns.CRITICSSCORE, value);
         return this;
     }
 
-    public MoviesSelection criticsscoreLt(int value) {
+    public MoviesSelection criticsscoreLt(double value) {
         addLessThan(MoviesColumns.CRITICSSCORE, value);
         return this;
     }
 
-    public MoviesSelection criticsscoreLtEq(int value) {
+    public MoviesSelection criticsscoreLtEq(double value) {
         addLessThanOrEquals(MoviesColumns.CRITICSSCORE, value);
         return this;
     }
@@ -315,6 +315,46 @@ public class MoviesSelection extends AbstractSelection<MoviesSelection> {
 
     public MoviesSelection orderByReleasedate() {
         orderBy(MoviesColumns.RELEASEDATE, false);
+        return this;
+    }
+
+    public MoviesSelection posterurl(String... value) {
+        addEquals(MoviesColumns.POSTERURL, value);
+        return this;
+    }
+
+    public MoviesSelection posterurlNot(String... value) {
+        addNotEquals(MoviesColumns.POSTERURL, value);
+        return this;
+    }
+
+    public MoviesSelection posterurlLike(String... value) {
+        addLike(MoviesColumns.POSTERURL, value);
+        return this;
+    }
+
+    public MoviesSelection posterurlContains(String... value) {
+        addContains(MoviesColumns.POSTERURL, value);
+        return this;
+    }
+
+    public MoviesSelection posterurlStartsWith(String... value) {
+        addStartsWith(MoviesColumns.POSTERURL, value);
+        return this;
+    }
+
+    public MoviesSelection posterurlEndsWith(String... value) {
+        addEndsWith(MoviesColumns.POSTERURL, value);
+        return this;
+    }
+
+    public MoviesSelection orderByPosterurl(boolean desc) {
+        orderBy(MoviesColumns.POSTERURL, desc);
+        return this;
+    }
+
+    public MoviesSelection orderByPosterurl() {
+        orderBy(MoviesColumns.POSTERURL, false);
         return this;
     }
 

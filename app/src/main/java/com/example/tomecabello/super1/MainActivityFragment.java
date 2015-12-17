@@ -108,7 +108,7 @@ public class MainActivityFragment extends Fragment {
 
     //Aqui miraremso que opcion está seleccionada, y mostraremos la lista que pertoca
     private void refresh() {
-        Api api = new Api();
+        Api api = new Api(getContext());
         //api.getPeliculesMesVistes(adapter);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());

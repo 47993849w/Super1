@@ -1,10 +1,16 @@
 package com.example.tomecabello.super1;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.example.tomecabello.super1.json.API;
 import com.example.tomecabello.super1.json.Result;
+import com.example.tomecabello.super1.provider.movies.MoviesColumns;
+import com.example.tomecabello.super1.provider.movies.MoviesContentValues;
+
+import java.util.ArrayList;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -21,6 +27,7 @@ import retrofit.http.GET;
 public class Api {
     final String API_KEY = "6cb54438ece271e5a26d8c532fac02ce";
     final String BASE_URL = "https://api.themoviedb.org/3/";//Parte "basica" de la url
+    private final Context context;
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -28,8 +35,9 @@ public class Api {
 
     Interface servei = retrofit.create(Interface.class);
 
-    public Api(){
+    public Api(Context context){
         super();
+        this.context=context;
     }
 
 
@@ -37,16 +45,32 @@ public class Api {
     //Com esto mostaremos las pelis más vistas
     public void getPeliculesMesVistes(final ArrayAdapter<Result> adapter){
         Call<API> call = servei.getPeliculesMesVistes();
-        call.enqueue(new Callback<API>()  { //Encolamos
+        call.enqueue(new Callback<API>() { //Encolamos
 
             @Override
             public void onResponse(Response<API> response, Retrofit retrofit) { //Si responde, podemos usar el json y añadir a nuestro adapter la peli
                 if (response.isSuccess()) {
                     Log.d(null, "OK");
-                    API api= response.body();
+                    API api = response.body();
+                    Long syncTime =System.currentTimeMillis();
                     adapter.clear();
                     for (Result peli : api.getResults()) {
-                        adapter.add(peli);
+                        //adapter.add(peli);
+                        MoviesContentValues values = new MoviesContentValues();
+                        values.putTitle(peli.getTitle());
+                        values.putAudiencescore(peli.getPopularity());
+                        //values.putConsensus(peli.getCriticsConsensus());
+                        //values.putCriticsscore(peli.getRatings().getCriticsScore());
+                        values.putPosterurl(peli.getPosterPath());
+                        values.putReleasedate(peli.getReleaseDate());
+                        values.putSynopsis(peli.getOverview());
+                        values.putSynctime(syncTime);
+
+                        context.getContentResolver().insert(
+                                MoviesColumns.CONTENT_URI,
+                                values.values()
+                        );
+
                     }
 
                 }
@@ -72,10 +96,29 @@ public class Api {
                 if (response.isSuccess()) {
                     Log.d(null, "OK");
                     API api = response.body();
+
+                    Long syncTime =System.currentTimeMillis();
+                    ArrayList<ContentValues> valueList=new ArrayList<>();
                     adapter.clear();
                     for (Result peli : api.getResults()) {
                         Double vote = peli.getVoteAverage();
-                        adapter.add(peli);
+                        //adapter.add(peli);
+                        MoviesContentValues values = new MoviesContentValues();
+                        values.putTitle(peli.getTitle());
+                        values.putAudiencescore(peli.getPopularity());
+                        //values.putConsensus(peli.getCriticsConsensus());
+                        //values.putCriticsscore(peli.getRatings().getCriticsScore());
+                        values.putPosterurl(peli.getPosterPath());
+                        values.putReleasedate(peli.getReleaseDate());
+                        values.putSynopsis(peli.getOverview());
+                        values.putSynctime(syncTime);
+                        context.getContentResolver().bulkInsert(
+                                MoviesColumns.CONTENT_URI,
+                                valueList.toArray(
+                                    new ContentValues[valueList.size()]
+                                )
+                        );
+
                     }
 
                 }
