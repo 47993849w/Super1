@@ -1,0 +1,13 @@
+{
+  "syntaxVersion": 3,
+  "projectPackageId": "com.example.tomecabello.super1",
+  "authority": "com.example.tomecabello.super1.provider",
+  "providerJavaPackage": "com.example.tomecabello.super1.provider",
+  "providerClassName": "MoviesProvider",
+  "sqliteOpenHelperClassName": "MoviesSQLiteOpenHelper",
+  "sqliteOpenHelperCallbacksClassName": "MoviesSQLiteOpenHelperCallbacks",
+  "databaseFileName": "movies.db",
+  "databaseVersion": 1,
+  "enableForeignKeys": true,
+  "useAnnotations": true
+}

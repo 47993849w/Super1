@@ -1,0 +1,32 @@
+{
+  "fields": [
+    {
+      "name": "title",
+      "type": "String"
+    },
+    {
+      "name": "criticsScore",
+      "type": "Integer"
+    },
+    {
+      "name": "audienceScore",
+      "type": "Integer"
+    },
+    {
+      "name": "consensus",
+      "type": "String"
+    },
+    {
+      "name": "synopsis",
+      "type": "String"
+    },
+    {
+      "name": "releaseDate",
+      "type": "String"
+    },
+    {
+      "name": "syncTime",
+      "type": "Date"
+    }
+  ]
+}
