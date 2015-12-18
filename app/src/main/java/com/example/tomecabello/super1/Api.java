@@ -9,6 +9,7 @@ import com.example.tomecabello.super1.json.API;
 import com.example.tomecabello.super1.json.Result;
 import com.example.tomecabello.super1.provider.movies.MoviesColumns;
 import com.example.tomecabello.super1.provider.movies.MoviesContentValues;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -43,7 +44,7 @@ public class Api {
 
 
     //Com esto mostaremos las pelis más vistas
-    public void getPeliculesMesVistes(final ArrayAdapter<Result> adapter){
+    public void getPeliculesMesVistes(){
         Call<API> call = servei.getPeliculesMesVistes();
         call.enqueue(new Callback<API>() { //Encolamos
 
@@ -53,7 +54,8 @@ public class Api {
                     Log.d(null, "OK");
                     API api = response.body();
                     Long syncTime =System.currentTimeMillis();
-                    adapter.clear();
+
+                    ArrayList<ContentValues> valuesList = new ArrayList<>();
                     for (Result peli : api.getResults()) {
                         //adapter.add(peli);
                         MoviesContentValues values = new MoviesContentValues();
@@ -70,8 +72,14 @@ public class Api {
                                 MoviesColumns.CONTENT_URI,
                                 values.values()
                         );
+                        Picasso.with(context).load(peli.getPosterPath()).fetch();
 
                     }
+                    context.getContentResolver().delete(
+                            MoviesColumns.CONTENT_URI,
+                            MoviesColumns.SYNCTIME +" < ?",
+                            new String[]{Long.toString(syncTime)}
+                    );
 
                 }
 
@@ -87,7 +95,7 @@ public class Api {
     }
 
     //Con esto, las votadas
-    public void getPeliculesMesVotades(final ArrayAdapter<Result> adapter) {
+    public void getPeliculesMesVotades() {
         Call<API> call = servei.getPeliculesMesVotades();
         call.enqueue(new Callback<API>() {
 
@@ -99,7 +107,7 @@ public class Api {
 
                     Long syncTime =System.currentTimeMillis();
                     ArrayList<ContentValues> valueList=new ArrayList<>();
-                    adapter.clear();
+
                     for (Result peli : api.getResults()) {
                         Double vote = peli.getVoteAverage();
                         //adapter.add(peli);
@@ -112,11 +120,10 @@ public class Api {
                         values.putReleasedate(peli.getReleaseDate());
                         values.putSynopsis(peli.getOverview());
                         values.putSynctime(syncTime);
-                        context.getContentResolver().bulkInsert(
+                        context.getContentResolver().insert(
                                 MoviesColumns.CONTENT_URI,
-                                valueList.toArray(
-                                    new ContentValues[valueList.size()]
-                                )
+                                values.values()
+
                         );
 
                     }
