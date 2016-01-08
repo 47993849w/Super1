@@ -125,12 +125,21 @@ public class Api {
                                 values.values()
 
                         );
+                        Picasso.with(context).load(peli.getPosterPath()).fetch();
+
+                    }
+                    context.getContentResolver().delete(
+                            MoviesColumns.CONTENT_URI,
+                            MoviesColumns.SYNCTIME +" < ?",
+                            new String[]{Long.toString(syncTime)}
+                    );
+
 
                     }
 
                 }
 
-            }
+
 
             @Override
             public void onFailure(Throwable t) {
