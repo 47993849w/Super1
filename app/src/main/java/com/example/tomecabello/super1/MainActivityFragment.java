@@ -101,7 +101,7 @@ public class MainActivityFragment extends Fragment implements android.support.v4
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getContext(), DetallesActivity.class);
-                i.putExtra("movie_id", id);
+                i.putExtra("movie._id", id);
                 startActivity(i);
             }
 

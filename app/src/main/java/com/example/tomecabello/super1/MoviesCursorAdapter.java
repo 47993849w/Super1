@@ -18,6 +18,8 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.sql.SQLOutput;
+
 /**
  * Created by 47993849w on 18/12/15.
  */
@@ -44,13 +46,21 @@ public class MoviesCursorAdapter extends SimpleCursorAdapter{
             convertView=inflater.inflate(R.layout.ly_pelis, parent, false);
         }
 
-        TextView titulo = (TextView ) convertView.findViewById(R.id.fragment);
+        TextView titulo = (TextView ) convertView.findViewById(R.id.title);
         TextView valor = (TextView) convertView.findViewById(R.id.popularity);
+        TextView fecha = (TextView) convertView.findViewById(R.id.data);
         ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView);
 
-//        titulo.setText(moviesCursor.getTitle());
-        valor.setText(""+moviesCursor.getCriticsscore());
-        Picasso.with(context).load(moviesCursor.getPosterurl()).fit().into(imageView);
+       titulo.setText(moviesCursor.getTitle());
+        System.out.println("HHSDYEYEE" + moviesCursor.getAudiencescore());
+        System.out.println("HHSDYEYEE" + moviesCursor.getTitle());
+        valor.setText("" + moviesCursor.getAudiencescore());
+        fecha.setText(moviesCursor.getReleasedate());
+       // Picasso.with(context).load(moviesCursor.getPosterurl()).fit().into(imageView);
+
+        final  String POSTERURLINI = "http://image.tmdb.org/t/p/";
+        final String TMN = "w342";
+        Picasso.with(context).load(POSTERURLINI + TMN + moviesCursor.getPosterurl()).into(imageView);
         return convertView;
 
     }
