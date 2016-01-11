@@ -2,6 +2,7 @@ package com.example.tomecabello.super1;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
@@ -11,6 +12,7 @@ import com.example.tomecabello.super1.provider.movies.MoviesColumns;
 import com.example.tomecabello.super1.provider.movies.MoviesContentValues;
 import com.squareup.picasso.Picasso;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,11 +45,24 @@ public class Api {
     }
 
 
+    public void mv(){
+        UpdateMovies1 updateMovies = new UpdateMovies1();
+        updateMovies.execute();
+    }
+
+    public void mvt(){
+        UpdateMovies2 updateMovies = new UpdateMovies2();
+        updateMovies.execute();
+    }
 
     //Com esto mostaremos las pelis más vistas
     public void getPeliculesMesVistes(){
         Call<API> call = servei.getPeliculesMesVistes();
-        call.enqueue(new Callback<API>() { //Encolamos
+
+        call.enqueue(new Callback<API>()
+
+
+        { //Encolamos
 
             @Override
             public void onResponse(Response<API> response, Retrofit retrofit) { //Si responde, podemos usar el json y añadir a nuestro adapter la peli
@@ -56,7 +71,7 @@ public class Api {
                     API api = response.body();
                     ContentValues[] bulkToInsert;
                     List<ContentValues> mValueList = new ArrayList<>();
-                    Long syncTime =System.currentTimeMillis();
+                    Long syncTime = System.currentTimeMillis();
 
                     ArrayList<ContentValues> valuesList = new ArrayList<>();
                     for (Result peli : api.getResults()) {
@@ -71,9 +86,9 @@ public class Api {
                         values.putSynopsis(peli.getOverview());
                         values.putSynctime(syncTime);
 
-                       // context.getContentResolver().insert(
-                         //       MoviesColumns.CONTENT_URI,
-                           //     values.values()
+                        // context.getContentResolver().insert(
+                        //       MoviesColumns.CONTENT_URI,
+                        //     values.values()
                         //);
                         Picasso.with(context).load(peli.getPosterPath()).fetch();
                         mValueList.add(values.values());
@@ -82,11 +97,7 @@ public class Api {
                     bulkToInsert = new ContentValues[mValueList.size()];
                     mValueList.toArray(bulkToInsert);
                     context.getContentResolver().bulkInsert(MoviesColumns.CONTENT_URI, bulkToInsert);
-                    context.getContentResolver().delete(
-                            MoviesColumns.CONTENT_URI,
-                            MoviesColumns.SYNCTIME +" < ?",
-                            new String[]{Long.toString(syncTime)}
-                    );
+
 
                 }
 
@@ -103,16 +114,17 @@ public class Api {
 
     //Con esto, las votadas
     public void getPeliculesMesVotades() {
-        Call<API> call = servei.getPeliculesMesVotades();
+       Call<API> call = servei.getPeliculesMesVotades();
         call.enqueue(new Callback<API>() {
 
             @Override
             public void onResponse(Response<API> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
                     Log.d(null, "OK");
+                    API api = response.body();
                     ContentValues[] bulkToInsert;
                     List<ContentValues> mValueList = new ArrayList<>();
-                    API api = response.body();
+
 
                     Long syncTime =System.currentTimeMillis();
                     ArrayList<ContentValues> valueList=new ArrayList<>();
@@ -134,17 +146,15 @@ public class Api {
                             //    values.values()
 
                         ///);
-                        bulkToInsert = new ContentValues[mValueList.size()];
-                        mValueList.toArray(bulkToInsert);
-                        context.getContentResolver().bulkInsert(MoviesColumns.CONTENT_URI, bulkToInsert);
+
                         Picasso.with(context).load(peli.getPosterPath()).fetch();
+                        mValueList.add(values.values());
 
                     }
-                    context.getContentResolver().delete(
-                            MoviesColumns.CONTENT_URI,
-                            MoviesColumns.SYNCTIME +" < ?",
-                            new String[]{Long.toString(syncTime)}
-                    );
+                    bulkToInsert = new ContentValues[mValueList.size()];
+                    mValueList.toArray(bulkToInsert);
+                    context.getContentResolver().bulkInsert(MoviesColumns.CONTENT_URI, bulkToInsert);
+
 
 
                     }
@@ -159,6 +169,41 @@ public class Api {
 
             }
         });
+    }
+
+
+    public void borrar(long sync){
+        context.getContentResolver().delete(
+                MoviesColumns.CONTENT_URI,
+                MoviesColumns.SYNCTIME + " < ?",
+                new String[]{Long.toString(sync)}
+        );
+    }
+
+
+    class UpdateMovies1 extends AsyncTask{
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            getPeliculesMesVistes();
+
+            Long syncTime = System.currentTimeMillis();
+            borrar(syncTime);
+
+            return null;
+        }
+    }
+    class UpdateMovies2 extends AsyncTask{
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+
+            getPeliculesMesVotades();
+            Long syncTime = System.currentTimeMillis();
+            borrar(syncTime);
+
+            return null;
+        }
     }
 
 

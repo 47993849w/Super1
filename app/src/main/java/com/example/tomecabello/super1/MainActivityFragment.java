@@ -141,10 +141,11 @@ public class MainActivityFragment extends Fragment implements android.support.v4
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         String tipoConsulta = preferences.getString("tipoConsulta", "Mas vistas");
         if (tipoConsulta.equals("r")){
-            api.getPeliculesMesVistes();
+            api.mv();
         }
         else {
-            api.getPeliculesMesVotades();
+            System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+            api.mvt();
         }
 
         //api.getPelicules;
