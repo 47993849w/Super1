@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.example.tomecabello.super1.json.API;
 import com.example.tomecabello.super1.json.Result;
@@ -140,6 +141,8 @@ public class Api {
                         values.putPosterurl(peli.getPosterPath());
                         values.putReleasedate(peli.getReleaseDate());
                         values.putSynopsis(peli.getOverview());
+
+
                         values.putSynctime(syncTime);
                         //context.getContentResolver().insert(
                           //      MoviesColumns.CONTENT_URI,
@@ -165,6 +168,7 @@ public class Api {
 
             @Override
             public void onFailure(Throwable t) {
+                Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show();
 
 
             }

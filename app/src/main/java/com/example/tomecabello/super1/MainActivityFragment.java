@@ -45,7 +45,18 @@ public class MainActivityFragment extends Fragment implements android.support.v4
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-            }
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+                      if (!preferences.contains("first_sync")) {
+                          Api api = new Api(getContext());
+                            api.mvt();
+                            api.mv();
+                          SharedPreferences.Editor editor = preferences.edit();
+                       editor.putBoolean("first_sync", true);
+                          editor.apply();
+                    }
+    }
+
 
 
     //cada vez que monstramos este fragment,  recargamos la lista
