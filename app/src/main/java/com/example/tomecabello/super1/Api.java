@@ -12,6 +12,7 @@ import com.example.tomecabello.super1.provider.movies.MoviesContentValues;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -53,6 +54,8 @@ public class Api {
                 if (response.isSuccess()) {
                     Log.d(null, "OK");
                     API api = response.body();
+                    ContentValues[] bulkToInsert;
+                    List<ContentValues> mValueList = new ArrayList<>();
                     Long syncTime =System.currentTimeMillis();
 
                     ArrayList<ContentValues> valuesList = new ArrayList<>();
@@ -68,13 +71,17 @@ public class Api {
                         values.putSynopsis(peli.getOverview());
                         values.putSynctime(syncTime);
 
-                        context.getContentResolver().insert(
-                                MoviesColumns.CONTENT_URI,
-                                values.values()
-                        );
+                       // context.getContentResolver().insert(
+                         //       MoviesColumns.CONTENT_URI,
+                           //     values.values()
+                        //);
                         Picasso.with(context).load(peli.getPosterPath()).fetch();
+                        mValueList.add(values.values());
 
                     }
+                    bulkToInsert = new ContentValues[mValueList.size()];
+                    mValueList.toArray(bulkToInsert);
+                    context.getContentResolver().bulkInsert(MoviesColumns.CONTENT_URI, bulkToInsert);
                     context.getContentResolver().delete(
                             MoviesColumns.CONTENT_URI,
                             MoviesColumns.SYNCTIME +" < ?",
@@ -103,6 +110,8 @@ public class Api {
             public void onResponse(Response<API> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
                     Log.d(null, "OK");
+                    ContentValues[] bulkToInsert;
+                    List<ContentValues> mValueList = new ArrayList<>();
                     API api = response.body();
 
                     Long syncTime =System.currentTimeMillis();
@@ -120,11 +129,14 @@ public class Api {
                         values.putReleasedate(peli.getReleaseDate());
                         values.putSynopsis(peli.getOverview());
                         values.putSynctime(syncTime);
-                        context.getContentResolver().insert(
-                                MoviesColumns.CONTENT_URI,
-                                values.values()
+                        //context.getContentResolver().insert(
+                          //      MoviesColumns.CONTENT_URI,
+                            //    values.values()
 
-                        );
+                        ///);
+                        bulkToInsert = new ContentValues[mValueList.size()];
+                        mValueList.toArray(bulkToInsert);
+                        context.getContentResolver().bulkInsert(MoviesColumns.CONTENT_URI, bulkToInsert);
                         Picasso.with(context).load(peli.getPosterPath()).fetch();
 
                     }

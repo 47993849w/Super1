@@ -49,14 +49,15 @@ public class MainActivityFragment extends Fragment implements android.support.v4
 
 
     //cada vez que monstramos este fragment,  recargamos la lista
-    /**
+
     public void onStart() {
                 super.onStart();
-                refresh();
+
+            getLoaderManager().restartLoader(0, null, this);
             }
 
 
-*/
+
 
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)

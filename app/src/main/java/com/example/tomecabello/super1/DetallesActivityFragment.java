@@ -25,6 +25,10 @@ import com.squareup.picasso.Picasso;
 public class DetallesActivityFragment extends Fragment {
     private long id;
     private TextView plot;
+    ImageView image3;
+    TextView popularity;
+    TextView data;
+    TextView title;
 
     public DetallesActivityFragment() {
     }
@@ -40,14 +44,14 @@ public class DetallesActivityFragment extends Fragment {
         // getActivity().setTitle(item.getTitle());
         // Toast.makeText(getContext(),item.getTitle() , Toast.LENGTH_LONG).show();
 
-        TextView title = (TextView) view.findViewById(R.id.title);
+         title = (TextView) view.findViewById(R.id.title);
         //SpannableString content = new SpannableString(item.getTitle());
         // content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         //title.setText(content);
-        TextView popularity = (TextView) view.findViewById(R.id.popularity);
-        TextView data = (TextView) view.findViewById(R.id.data);
-        ImageView image3 = (ImageView) view.findViewById(R.id.imageView);
-        TextView plot = (TextView) view.findViewById(R.id.arg);
+        popularity = (TextView) view.findViewById(R.id.popularity);
+         data = (TextView) view.findViewById(R.id.data);
+         image3 = (ImageView) view.findViewById(R.id.imageView);
+        plot = (TextView) view.findViewById(R.id.arg);
 
 
         //Long movie_id = getActivity().getIntent().getLongExtra("movie_id", -1);
@@ -76,14 +80,14 @@ public class DetallesActivityFragment extends Fragment {
                 null);
         MoviesCursor moviesCursor = new MoviesCursor(cursor);
         moviesCursor.moveToNext();
-        //title.setText(item.getTitle());
-//        popularity.setText("Popularidad:"+moviesCursor.getAudiencescore());
-        // data.setText("Fecha:"+moviesCursor.getReleasedate());
+        title.setText(moviesCursor.getTitle());
+        popularity.setText("Popularidad:" + moviesCursor.getAudiencescore());
+        data.setText("Fecha:" + moviesCursor.getReleasedate());
         final String POSTERURLINI = "http://image.tmdb.org/t/p/";
         final String TMN = "w780";
-        //Picasso.with(getContext()).load(moviesCursor.getPosterurl()).into(image3);
-        // System.out.println(POSTERURLINI + TMN + item.getPosterPath());
-        System.out.println(moviesCursor.getSynopsis()+"897y69876878979789079df789df8f9dejdnhf89ryfer9f8r");
+        Picasso.with(getContext()).load(POSTERURLINI+TMN+moviesCursor.getPosterurl()).into(image3);
+         System.out.println(POSTERURLINI + TMN + moviesCursor.getPosterurl());
+        System.out.println(moviesCursor.getSynopsis()+"897y69876878979789079df789df8f9dejdnhf89ryfer9f8r"+moviesCursor.getPosterurl() );
         plot.setText(moviesCursor.getSynopsis());
 
 
